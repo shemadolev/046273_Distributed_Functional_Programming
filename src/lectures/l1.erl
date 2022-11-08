@@ -36,5 +36,6 @@ pow(0,_) -> 0;
 pow(X,Y) -> X * pow(X,Y-1).
 
 % Return the Nth element in List
+list_nth(_, []) -> false;
 list_nth(1, [H | _]) -> H;
 list_nth(Nth, [_ | T]) -> list_nth(Nth-1,T).
