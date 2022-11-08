@@ -9,7 +9,7 @@
 -author("shema").
 
 %% API
--export([hello/0, test_area/0, fib/1,pow/2, list_nth/2]).
+-export([hello/0, test_area/0, fib/1, pow/2, list_nth/2]).
 
 hello() -> io:format("hello ~p!~n", [world]).
 
