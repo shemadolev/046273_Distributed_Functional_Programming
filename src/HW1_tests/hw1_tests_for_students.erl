@@ -11,7 +11,7 @@ validRectangle4() -> {rectangle,{dim,1,1}}.		% size 1
 validTriangle2() -> {triangle,{dim,3,2}}.		% size 3
 validTriangle3() -> {triangle,{dim,4,4}}.		% size 8
 
-validEllipse1() -> {ellipse,{radius,1,2}}.       	
+validEllipse1() -> {ellipse,{radius,1,2}}.
 validEllipse2() -> {ellipse,{radius,3,2}}.			
 
 %---valid structs
@@ -23,8 +23,9 @@ run_test() ->
 	io:format("expecting ~p and got ~p ~n",[57.84955592153876, shapes:shapesArea(validShapes4())]),
 	RectFun1 = shapes:shapesFilter(rectangle),
 	io:format("expecting ~p and got ~p ~n",[{shapes,[{rectangle,{dim,1,2}},{rectangle,{dim,5,5}}]},RectFun1(validShapes1())]),
-	io:format("expecting ~p and got ~p ~n",[true, game:canWin(2)]),
-	io:format("expecting ~p and got ~p ~n",[false, game:canWin(3)]).
+%%	io:format("expecting ~p and got ~p ~n",[true, game:canWin(2)]),
+%%	io:format("expecting ~p and got ~p ~n",[false, game:canWin(3)]),
+	io:format("End tests ~n").
 
 
 
