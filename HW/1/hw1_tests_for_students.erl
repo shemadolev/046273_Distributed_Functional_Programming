@@ -20,11 +20,11 @@ validShapes4() -> {shapes,[validEllipse2(),validRectangle1(), validTriangle2() ,
 
 
 run_test() ->
-	io:format("expecting ~p and got ~p ~n",[57.84955592153876,shapes:shapesArea(validShapes4())]),
+	io:format("expecting ~p and got ~p ~n",[57.84955592153876, shapes:shapesArea(validShapes4())]),
 	RectFun1 = shapes:shapesFilter(rectangle),
 	io:format("expecting ~p and got ~p ~n",[{shapes,[{rectangle,{dim,1,2}},{rectangle,{dim,5,5}}]},RectFun1(validShapes1())]),
-	io:format("expecting ~p and got ~p ~n",[true,game:canWin(2)]),
-	io:format("expecting ~p and got ~p ~n",[false,game:canWin(3)]).
+	io:format("expecting ~p and got ~p ~n",[true, game:canWin(2)]),
+	io:format("expecting ~p and got ~p ~n",[false, game:canWin(3)]).
 
 
 
