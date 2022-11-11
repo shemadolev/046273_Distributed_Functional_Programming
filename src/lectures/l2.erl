@@ -10,7 +10,7 @@
 -author("shema").
 
 %% API
--export([list_map/2, list_filter/2, find_main/1, try_catch_example/1, fib/1, fib_list/1, bump/1]).
+-export([list_map/2, list_filter/2, find_main/1, try_catch_example/1, fib/1, fib_list/1, bump/1, fib2/1]).
 
 %% bump w/ tail recursion
 bump(L) -> lists:reverse(bump(L, [])).
@@ -21,6 +21,12 @@ bump([H | T], Acc) -> bump(T, [H + 1 | Acc]).
 fib(I, I, [_, B]) -> B;
 fib(M, I, [A, B]) -> fib(M, I + 1, [B, A + B]).
 fib(N) when N > 0 -> fib(N, 1, [0, 1]).
+
+%% another fib w/ tail recursion (Done in Lec3)
+next_fib({X,Y}) -> {X+Y,X}.
+fib2_aux(1) -> {1,0};
+fib2_aux(N) -> next_fib(fib2_aux(N-1)).
+fib2(N) -> element(1,fib2_aux(N)).
 
 fib_list(N) ->
   [fib(X) || X <- lists:seq(1, N)].
