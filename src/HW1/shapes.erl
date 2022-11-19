@@ -11,6 +11,7 @@ checkShapesList([]) -> true;
 checkShapesList([H | T]) -> checkShape(H) and checkShapesList(T).
 checkShapes({shapes, ShapesList}) -> checkShapesList(ShapesList).
 
+% Gets a list of shapes and a ShapeKind, and returns a filtered list of shapes that contains only ShapeKind shapes
 filterShapes([], _) -> [];
 filterShapes([{rectangle, {dim, W, W}} | T], square) -> [{rectangle, {dim, W, W}} | filterShapes(T, square)];
 filterShapes([{ellipse, {radius, R, R}} | T], circle) -> [{ellipse, {radius, R, R}} | filterShapes(T, circle)];
@@ -35,6 +36,7 @@ shapesFilter2(ShapeKind)
     checkShapesList(ShapeList),
     {shapes, filterShapes(ShapeList, ShapeKind)} end.
 
+% Returns the area of a single shape
 shapeArea({rectangle, {dim, Width, Height}}) -> Width * Height;
 shapeArea({triangle, {dim, Base, Height}}) -> Base * Height / 2;
 shapeArea({ellipse, {radius, Radius1, Radius2}}) -> math:pi() * Radius1 * Radius2.
@@ -42,11 +44,11 @@ shapeArea({ellipse, {radius, Radius1, Radius2}}) -> math:pi() * Radius1 * Radius
 % Returns the sum of areas of all the shapes in a shape structure
 shapesArea({shapes, []}, Sum) -> Sum;
 shapesArea({shapes, [H | T]}, Sum) -> shapesArea({shapes, T}, Sum + shapeArea(H)).
-
 shapesArea(Shapes) ->
   checkShapes(Shapes),
   shapesArea(Shapes, 0).
 
+% Returns the sum of areas of all the 'ShapeKind' shapes in a shape structure
 filteredArea(Shapes, ShapeKind) ->
   FilteredShapes = (shapesFilter2(ShapeKind))(Shapes),
   shapesArea(FilteredShapes).
@@ -54,7 +56,5 @@ filteredArea(Shapes, ShapeKind) ->
 % Returns the sum of areas of all the squares in a shape structure
 squaresArea(Shapes) -> filteredArea(Shapes, square).
 
+% Returns the sum of areas of all the triangles in a shape structure
 trianglesArea(Shapes) -> filteredArea(Shapes, triangle).
-
-
-%TODO All functions should fail if the list is not legal
