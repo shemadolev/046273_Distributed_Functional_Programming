@@ -6,7 +6,7 @@
 canWin(1) -> true; % by taking 1 match
 canWin(2) -> true; % by taking 2 matches
 canWin(N) when N > 0 -> % I can win if by one of my moves the opponent can't win
-  not(canWin(N - 1) andalso canWin(N - 2)).
+  not canWin(N - 1) orelse not canWin(N - 2).
 
 nextMove(1) -> {true, 1};
 nextMove(2) -> {true, 2};
