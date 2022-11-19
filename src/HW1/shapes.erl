@@ -19,14 +19,18 @@ filterShapes([_ | T], ShapeKind) -> filterShapes(T, ShapeKind).
 
 % Returns a function, that gets a shapes structure and returns a shapes structure that has only shapes of the kind ShapeKind.
 % ShapeKind may be one of: rectangle | ellipse | triangle
-shapesFilter(ShapeKind) ->
+shapesFilter(ShapeKind)
+  when ShapeKind =:= rectangle; ShapeKind =:= ellipse; ShapeKind =:= triangle
+  ->
   fun({shapes, ShapeList}) ->
     checkShapesList(ShapeList),
     {shapes, filterShapes(ShapeList, ShapeKind)} end.
 
 % Returns a function, that gets a shapes structure and returns a shapes structure that has only shapes of the kind ShapeKind.
 % ShapeKind may be one of: rectangle | ellipse | triangle | square | circle
-shapesFilter2(ShapeKind) ->
+shapesFilter2(ShapeKind)
+  when ShapeKind =:= rectangle; ShapeKind =:= ellipse; ShapeKind =:= triangle; ShapeKind =:= square; ShapeKind =:= circle
+  ->
   fun({shapes, ShapeList}) ->
     checkShapesList(ShapeList),
     {shapes, filterShapes(ShapeList, ShapeKind)} end.
