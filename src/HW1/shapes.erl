@@ -12,8 +12,10 @@ checkShapesList([H | T]) -> checkShape(H) and checkShapesList(T).
 checkShapes({shapes, ShapesList}) -> checkShapesList(ShapesList).
 
 filterShapes([], _) -> [];
+filterShapes([{rectangle, {dim, W, W}} | T], square) -> [{rectangle, {dim, W, W}} | filterShapes(T, square)];
+filterShapes([{ellipse, {radius, R, R}} | T], circle) -> [{ellipse, {radius, R, R}} | filterShapes(T, circle)];
 filterShapes([{ShapeKind, Dim} | T], ShapeKind) -> [{ShapeKind, Dim} | filterShapes(T, ShapeKind)];
-filterShapes([_| T], ShapeKind) -> filterShapes(T, ShapeKind).
+filterShapes([_ | T], ShapeKind) -> filterShapes(T, ShapeKind).
 
 % Returns a function, that gets a shapes structure and returns a shapes structure that has only shapes of the kind ShapeKind.
 % ShapeKind may be one of: rectangle | ellipse | triangle
@@ -22,18 +24,12 @@ shapesFilter(ShapeKind) ->
     checkShapesList(ShapeList),
     {shapes, filterShapes(ShapeList, ShapeKind)} end.
 
-filterShapes2([], _) -> [];
-filterShapes2([{rectangle, {dim, W, W}} | T], square) -> [{rectangle, {dim, W, W}} | filterShapes2(T, square)];
-filterShapes2([{ellipse, {radius, R, R}} | T], circle) -> [{ellipse, {radius, R, R}} | filterShapes2(T, circle)];
-filterShapes2([{ShapeKind, Dim} | T], ShapeKind) -> [{ShapeKind, Dim} | filterShapes2(T, ShapeKind)];
-filterShapes2([_| T], ShapeKind) -> filterShapes2(T, ShapeKind).
-
 % Returns a function, that gets a shapes structure and returns a shapes structure that has only shapes of the kind ShapeKind.
 % ShapeKind may be one of: rectangle | ellipse | triangle | square | circle
 shapesFilter2(ShapeKind) ->
   fun({shapes, ShapeList}) ->
     checkShapesList(ShapeList),
-    {shapes, filterShapes2(ShapeList, ShapeKind)} end.
+    {shapes, filterShapes(ShapeList, ShapeKind)} end.
 
 shapeArea({rectangle, {dim, Width, Height}}) -> Width * Height;
 shapeArea({triangle, {dim, Base, Height}}) -> Base * Height / 2;
