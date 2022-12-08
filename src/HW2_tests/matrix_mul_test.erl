@@ -28,3 +28,16 @@ mul3x3_test() ->
   ?assertEqual(CA, matrix_mul:multiply(C, A)),
   ?assertEqual(CB, matrix_mul:multiply(C, B)),
   ?assertEqual(CC, matrix_mul:multiply(C, C)).
+
+mul_various_test() ->
+  M1x3 = {{23, 12, 20}},
+  M3x3 = {{5, 8, 25}, {21, 1, 21}, {0, 3, 9}},
+  M3x2 = {{29, 11}, {1, 23}, {13, 24}},
+  M2x1 = {{5}, {15}},
+
+  ?assertEqual({{939, 1009}}, matrix_mul:multiply(M1x3, M3x2)),
+  ?assertEqual({{367, 256, 1007}}, matrix_mul:multiply(M1x3, M3x3)),
+  ?assertEqual({{193, 123, 518}, {126, 232, 735}, {63, 30, 144}}, matrix_mul:multiply(M3x3, M3x3)),
+  ?assertEqual({{478,839},{883,758},{120,285}}, matrix_mul:multiply(M3x3, M3x2)),
+  ?assertEqual({{310},{350},{425}}, matrix_mul:multiply(M3x2, M2x1)),
+  ?assertEqual({{115,60,100},{345,180,300}}, matrix_mul:multiply(M2x1, M1x3)).
