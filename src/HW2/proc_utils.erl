@@ -12,12 +12,12 @@ spawn_send(Func, Pid) ->
 start_supervised_register(ChildFun, RegName) ->
   spawn(?MODULE, restarter, [ChildFun, RegName]).
 
-restarter(ChildFun, RegName) ->
-  process_flag(trap_exit, true),
-  Pid = spawn_link(ChildFun),
-  register(RegName, Pid), % todo must it be here, or can it be inside ChildFun?
-  receive
-    {'EXIT', Pid, normal} -> ok;
-    {'EXIT', Pid, shutdown} -> ok;
-    {'EXIT', Pid, _} -> restarter(ChildFun, RegName)
-  end.
+%%restarter(ChildFun, RegName) ->
+%%  process_flag(trap_exit, true),
+%%  Pid = spawn_link(ChildFun),
+%%  register(RegName, Pid), % todo must it be here, or can it be inside ChildFun?
+%%  receive
+%%    {'EXIT', Pid, normal} -> ok;
+%%    {'EXIT', Pid, shutdown} -> ok;
+%%    {'EXIT', Pid, _} -> restarter(ChildFun, RegName)
+%%  end.
