@@ -14,7 +14,7 @@ shutdown() ->
   erlang:error(not_implemented).
 
 %%todo add doc'
-mult(_Arg0, _Arg1) ->
+mult(_Mat1, _Mat2) ->
   erlang:error(not_implemented).
 
 %%todo add doc'
@@ -28,9 +28,9 @@ get_version() ->
 %% ---- Internal functions
 
 %% Spawns a process that calculates Mat1*Mat2 using matrix_mul module, and sends a response back to the client
-mult_job(ClientPid,MsgRef,Mat1, Mat2) ->
-  erlang:error(not_implemented).
-
-%% Main server loop, keeping its state in S
-loop(S) -> %%TODO do we really need S?
-  erlang:error(not_implemented).
+%%mult_job(ClientPid,MsgRef,Mat1, Mat2) ->
+%%  erlang:error(not_implemented).
+%%
+%%%% Main server loop, keeping its state in S
+%%loop(S) -> %%TODO do we really need S?
+%%  erlang:error(not_implemented).
