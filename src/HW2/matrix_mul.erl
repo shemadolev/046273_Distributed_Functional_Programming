@@ -25,8 +25,9 @@ calc_cell(Mat1, Mat2, RowIdx, ColIdx) ->
   list_sum(MulList).
 
 %% Collect all the results of each cell calculation from received messages, and combine them into one matrix.
-collect_cell_results(N, N, Matrix) -> Matrix;
-collect_cell_results(N, Total, Matrix) ->
+collect_cell_results(TotalExpectedReceive, TotalExpectedReceive, Matrix) -> Matrix;
+collect_cell_results(HowManyReceived, TotalExpectedReceive, Matrix) ->
   receive
-    {Row, Col, Value} -> collect_cell_results(N + 1, Total, matrix:setElementMat(Row, Col, Matrix, Value))
+    {Row, Col, Value} ->
+      collect_cell_results(HowManyReceived + 1, TotalExpectedReceive, matrix:setElementMat(Row, Col, Matrix, Value))
   end.
