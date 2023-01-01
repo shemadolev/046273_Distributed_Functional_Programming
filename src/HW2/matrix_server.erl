@@ -25,7 +25,7 @@ mult(Mat1, Mat2) ->
 
 %%todo add doc'
 explanation() ->
-  erlang:error(not_implemented).
+  { "to avoid killing the supervisor on a 2nd update" }.
 
 %%todo add doc'
 get_version() ->
@@ -47,7 +47,7 @@ loop() ->
   receive
     shutdown -> ok;
     {Pid, MsgRef, get_version} ->
-      Pid ! {MsgRef, version_6},
+      Pid ! {MsgRef, version_1},
       loop();
     {Pid, MsgRef, {multiple, Mat1, Mat2}} ->
       mult_job(Pid, MsgRef, Mat1, Mat2),

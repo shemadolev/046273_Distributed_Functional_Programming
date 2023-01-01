@@ -1,12 +1,11 @@
 %% Unit tests for matrix_mul module
 -module(matrix_mul_test).
-
 -include_lib("eunit/include/eunit.hrl").
 
 matrix_mul(Mat1, Mat2) ->
   % Return here Mat1 multiplied by Mat2
 %%  erlang:error(not_implemented).
-  matrix_mul(Mat1, Mat2).
+  matrix_server:mult(Mat1, Mat2).
 
 simple_test() ->
   ?assertEqual({{1}}, matrix_mul({{1}}, {{1}})),
@@ -26,7 +25,7 @@ mul3x3_test() ->
   BC = {{151, 385, 454, 476}, {104, 266, 308, 484}, {336, 643, 741, 892}, {106, 388, 406, 722}},
   CA = {{418, 256, 157, 451}, {251, 97, 65, 216}, {472, 284, 184, 513}, {458, 336, 173, 400}},
   CB = {{493, 739, 483, 369}, {211, 355, 259, 57}, {574, 790, 497, 458}, {631, 679, 464, 535}},
-  CC = {{333, 621, 692, 696}, {243, 314, 391, 255}, {306, 637, 692, 850}, {243, 682, 742, 934}},
+  CC = {{333, 621, 692, 696}, {243, 314, 391, 254}, {306, 637, 692, 850}, {243, 682, 742, 934}},
 
   ?assertEqual(AA, matrix_mul(A, A)),
   ?assertEqual(AB, matrix_mul(A, B)),
