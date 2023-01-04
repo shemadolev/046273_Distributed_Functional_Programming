@@ -2,19 +2,18 @@
 
 %% API
 -export([start_server/0, shutdown/0, mult/2, get_version/0, explanation/0, loop/0]).
-% todo we don't want to export loop, but get an 'unused error' if not exported
 
 %% ---- API functions
 
-%%todo add doc'
+%% Start the server
 start_server() ->
   proc_utils:start_supervised_register(?MODULE, loop, [], matrix_server).
 
-%%todo add doc'
+%% Shutdown the server
 shutdown() ->
   matrix_server ! shutdown.
 
-%%todo add doc'
+%% Gets two matrices and returns their product (as calculated on the server)
 mult(Mat1, Mat2) ->
   Pid = self(),
   MsgRef = make_ref(),
@@ -23,11 +22,11 @@ mult(Mat1, Mat2) ->
     {MsgRef, Mat} -> Mat
   end.
 
-%%todo add doc'
+%%Explain why we must separate the supervisor's code from the server's code
 explanation() ->
-  erlang:error(not_implemented).
+  { "to avoid killing the supervisor on a 2nd update" }.
 
-%%todo add doc'
+%%Get the server's version identifier
 get_version() ->
   Pid = self(),
   MsgRef = make_ref(),
@@ -47,7 +46,7 @@ loop() ->
   receive
     shutdown -> ok;
     {Pid, MsgRef, get_version} ->
-      Pid ! {MsgRef, version_6},
+      Pid ! {MsgRef, version_1},
       loop();
     {Pid, MsgRef, {multiple, Mat1, Mat2}} ->
       mult_job(Pid, MsgRef, Mat1, Mat2),
