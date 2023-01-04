@@ -20,6 +20,5 @@ restarter(Module, ModFunc, Args, RegName) ->
     {'EXIT', Pid, normal} -> ok;
     {'EXIT', Pid, shutdown} -> ok;
     {'EXIT', Pid, _} ->
-      io:format("server died!"),
       restarter(Module, ModFunc, Args, RegName)
   end.
