@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/HW1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/HW2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/HW3" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Erlang 25" jdkType="Erlang SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
