@@ -3,7 +3,7 @@
 -behaviour(gen_server).
 
 %% API
--export([init/1, handle_call/3, handle_cast/2, handle_info/2, start_link/0, get_current_functions_count/0, calc_fun/3]).
+-export([init/1, handle_call/3, handle_cast/2, start_link/0, get_current_functions_count/0, calc_fun/3]).
 
 %% ------ Interface Routines -------
 
@@ -27,7 +27,4 @@ handle_call(_Request, _From, _State) ->
   erlang:error(not_implemented).
 
 handle_cast(_Request, _State) ->
-  erlang:error(not_implemented).
-
-handle_info(_Info, _State) ->
   erlang:error(not_implemented).
