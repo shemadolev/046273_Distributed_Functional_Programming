@@ -3,7 +3,7 @@
 -behaviour(supervisor).
 
 %% API
--export([init/1, start_link/0]).
+-export([init/1, start_link/0, stop_all/0]).
 
 start_link() ->
   supervisor:start_link({local, ?MODULE}, ?MODULE, []).
@@ -17,3 +17,5 @@ init([]) ->
   permanent, brutal_kill, worker, [fun_server]},
   {ok,{{one_for_one,1,1}, [Server1, Server2, Server3]}}.
 
+stop_all() ->
+  erlang:error(not_implemented).
