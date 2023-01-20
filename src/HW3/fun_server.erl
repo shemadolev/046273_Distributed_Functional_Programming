@@ -3,7 +3,7 @@
 -behaviour(gen_server).
 
 %% API
--export([init/1, handle_call/3, handle_cast/2, start_link/0, get_current_functions_count/0, calc_fun/3]).
+-export([init/1, handle_call/3, handle_cast/2, get_current_functions_count/0, calc_fun/3, start_link/1]).
 
 %% ------ Interface Routines -------
 
@@ -17,10 +17,10 @@ calc_fun(ClientPid, ClientFun, MsgRef) ->
 
 %% ------ gen_server Callback Routines -------
 
-start_link() ->
-  gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
+start_link(ServerName) ->
+  gen_server:start_link({local, ?MODULE}, ?MODULE, [ServerName]).
 
-init(_Args) ->
+init(_ServerName) ->
   erlang:error(not_implemented).
 
 handle_call(_Request, _From, _State) ->
