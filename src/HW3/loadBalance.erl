@@ -13,7 +13,7 @@ stopServers() ->
   erlang:error(not_implemented).
 
 %% Gets the number of one of the servers; Returns the number of functions that server is running now.
-numberOfRunningFunctions(_SeverNumber) ->
+numberOfRunningFunctions(_ServerNumber) ->
   erlang:error(not_implemented).
 
 %% Gets the client's PID, a function, and some MsgRef; Returns ok, executes the function on the least busy server and
