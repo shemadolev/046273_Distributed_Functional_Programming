@@ -2,13 +2,13 @@
 -module(loadBalance).
 
 %% API
--export([startServer/0, stopServers/0, numberOfRunningFunctions/1, calcFun/3, test/0]).
+-export([startServers/0, stopServers/0, numberOfRunningFunctions/1, calcFun/3]).
 
 serverNumToAtom(ServerNumber) ->
   list_to_atom(string:concat("server", integer_to_list(ServerNumber))).
 
 %% Starts all servers.
-startServer() ->
+startServers() ->
   servers_supervisor:start().
 
 %% Stops all servers.
