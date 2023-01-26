@@ -10,13 +10,10 @@ start() ->
   unlink(SupervisorPid).
 
 init([]) ->
-  Server1 = {server1, {fun_server, start_link, [server1]},
-    permanent, brutal_kill, worker, [fun_server]},
-  Server2 = {server2, {fun_server, start_link, [server2]},
-    permanent, brutal_kill, worker, [fun_server]},
-  Server3 = {server3, {fun_server, start_link, [server3]},
-    permanent, brutal_kill, worker, [fun_server]},
-  {ok, {{one_for_one, 1, 1}, [Server1, Server2, Server3]}}.
+  Servers = [
+    {ServerName, {fun_server, start_link, [ServerName]}, permanent, brutal_kill, worker, [fun_server]}
+    || ServerName <- [server1, server2, server3]],
+  {ok, {{one_for_one, 10, 10}, Servers}}.
 
 stop_all() ->
   exit(whereis(?MODULE), kill).
