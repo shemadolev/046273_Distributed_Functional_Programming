@@ -6,10 +6,10 @@ simple_test() ->
   loadBalance:startServers(),
   loadBalance:stopServers().
 
+% dummy function that takes <Time> ms to respond
 func_to_calc(ExpectedRes, Time) ->
   timer:sleep(Time),
   ExpectedRes.
-
 
 simple_calc_test() ->
   loadBalance:startServers(),
@@ -40,8 +40,10 @@ load_balance_test() ->
 
 kill_servers_test() ->
   loadBalance:startServers(),
+  % kill all servers
   [exit(whereis(ServerName), kill) || ServerName <- [server1, server2, server3]],
   timer:sleep(100),
+  % make sure servers are alive again
   RunningCount = [loadBalance:numberOfRunningFunctions(ServerNum) || ServerNum <- lists:seq(1, 3)],
   ?assertEqual([0, 0, 0], RunningCount),
   loadBalance:stopServers().
