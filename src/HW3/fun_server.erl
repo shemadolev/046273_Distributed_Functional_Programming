@@ -29,7 +29,7 @@ handle_call(fun_count, _From, State) ->
   {reply, State, State}.
 
 handle_cast({calc_fun, ServerName, ClientPid, ClientFun, MsgRef}, State) ->
-  spawn_link( %todo spawn or spawn_link?
+  spawn_link( % spawn so task will run in parallel
     fun() ->
       Res = catch ClientFun(),
       gen_server:cast(ServerName, fun_finished), % signal the server the function has finished

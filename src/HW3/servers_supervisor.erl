@@ -3,19 +3,27 @@
 -behaviour(supervisor).
 
 %% API
--export([init/1, start_link/0, stop_all/0]).
+-export([init/1, start/0, stop_all/0]).
 
-start_link() ->
-  supervisor:start_link({local, ?MODULE}, ?MODULE, []).
+start() ->
+  {ok, SupervisorPid} = supervisor:start_link({local, ?MODULE}, ?MODULE, []),
+  unlink(SupervisorPid).
 
 init([]) ->
-  Server1 = {server1,{fun_server, start_link, [server1]},
-  permanent, brutal_kill, worker, [fun_server]},
-  Server2 = {server2,{fun_server, start_link, [server2]},
-  permanent, brutal_kill, worker, [fun_server]},
-  Server3 = {server3,{fun_server, start_link, [server3]},
-  permanent, brutal_kill, worker, [fun_server]},
-  {ok,{{one_for_one,1,1}, [Server1, Server2, Server3]}}.
+  Servers = [
+    #{id => ServerName, % child id
+      start => {fun_server, start_link, [ServerName]}, %  unction call used to start the child process
+      restart => permanent, % when a terminated child process is to be restarted
+      shutdown => brutal_kill, % how a child process is to be terminated
+      type => worker, % whether a supervisor or worker
+      modules => [fun_server]} % [callback_module] if the child process is a supervisor / gen_server
+    || ServerName <- [server1, server2, server3]],
+  {ok, {
+    #{strategy => one_for_one, % one_for_all | one_for_one | rest_for_one | simple_one_for_one
+      % If more than <intensity> number of restarts occur in the last <period> seconds, the supervisor terminates
+      intensity => 10,
+      period => 10},
+    Servers}}. % Child specs
 
 stop_all() ->
-  erlang:error(not_implemented).
+  exit(whereis(?MODULE), kill).
